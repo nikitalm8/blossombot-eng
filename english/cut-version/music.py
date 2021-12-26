@@ -143,10 +143,6 @@ class Music(commands.Cog):
                     voice = get(self.bot.voice_clients, guild=ctx.guild)
                     
                     voice.resume()
-                    unpause = self.bot.get_emoji(892866024670646322)
-                    last = ctx.channel.last_message_id
-                    msg = await ctx.channel.fetch_message(int(last))
-                    await msg.add_reaction(unpause)
                 if not ctx.voice_client.is_playing():
                     await ctx.send("Nothing to play...")
             else:
@@ -154,10 +150,6 @@ class Music(commands.Cog):
                     voice = get(self.bot.voice_clients, guild=ctx.guild)
                     
                     voice.resume()
-                    unpause = self.bot.get_emoji(892866024670646322)
-                    last = ctx.channel.last_message_id
-                    msg = await ctx.channel.fetch_message(int(last))
-                    await msg.add_reaction(unpause)
                 else:
                     await self.player(ctx) and await self.afk(ctx)
         else:
@@ -253,9 +245,9 @@ class Music(commands.Cog):
 
         msg = await ctx.channel.fetch_message(ctx.channel.last_message_id)
         if 'Now playing' in msg.content and msg.author.bot:
-            await msg.edit(content='<:yt:892878028642852884> **Now playing:** ``' + nowp + '``')
+            await msg.edit(content='**Now playing:** ``' + nowp + '``')
         else:
-            await ctx.send('<:yt:892878028642852884> **Now playing:** ``' + nowp + "``")
+            await ctx.send('**Now playing:** ``' + nowp + "``")
 
     async def looper(self, ctx):
         
@@ -315,36 +307,21 @@ class Music(commands.Cog):
                 loopah = False
                 qloop = False 
                 waitfor = False
-                unloop = self.bot.get_emoji(897929571561799690)
-                last = ctx.channel.last_message_id
-                msg = await ctx.channel.fetch_message(int(last))
-                await msg.add_reaction(unloop)
             elif loopah == False:
                 qloop = False
                 waitfor = False
                 loopah = True
-                loopemoji1 = self.bot.get_emoji(899987875410636811)
-                last = ctx.channel.last_message_id
-                msg = await ctx.channel.fetch_message(int(last))
-                await msg.add_reaction(loopemoji1)
 
         if url == 'queue':
             if qloop == True:
                 del(queue[0])
                 del(plist[0])
                 qloop = False
-                unloop = self.bot.get_emoji(897929571561799690)
-                last = ctx.channel.last_message_id
-                msg = await ctx.channel.fetch_message(int(last))
-                await msg.add_reaction(unloop)
+
             elif qloop == False:
                 queue.insert(0, forloop)
                 plist.insert(0, forloop)
                 qloop = True
-                loopemoji = self.bot.get_emoji(897929571431776327)
-                last = ctx.channel.last_message_id
-                msg = await ctx.channel.fetch_message(int(last))
-                await msg.add_reaction(loopemoji)
             loopah = False
             
     @commands.command(aliases=['fp'])
@@ -370,7 +347,7 @@ class Music(commands.Cog):
                 voice = get(self.bot.voice_clients, guild=ctx.guild)
                 voice.stop()
             ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-            await ctx.send('<:yt:892878028642852884> **Now playing:** ``{}'.format(player.title) + "``")
+            await ctx.send('**Now playing:** ``{}'.format(player.title) + "``")
         if checker == False:
             await self.player(ctx)
 
@@ -380,22 +357,12 @@ class Music(commands.Cog):
 
         voice.pause()
 
-        pause = self.bot.get_emoji(892866024616132608)
-        last = ctx.channel.last_message_id
-        msg = await ctx.channel.fetch_message(int(last))
-        await msg.add_reaction(pause)
-
     @commands.command(aliases=['resume'])
     async def unpause(self, ctx):
         if ctx.voice_client.is_paused():
             voice = get(self.bot.voice_clients, guild=ctx.guild)
 
             voice.resume()
-
-            unpause = self.bot.get_emoji(892866024670646322)
-            last = ctx.channel.last_message_id
-            msg = await ctx.channel.fetch_message(int(last))
-            await msg.add_reaction(unpause)
 
     @commands.command(aliases=['skip'])
     async def s(self, ctx):
@@ -412,11 +379,6 @@ class Music(commands.Cog):
         voice = get(self.bot.voice_clients, guild=ctx.guild)
 
         voice.stop()
-
-        skip = self.bot.get_emoji(892998428609642506)
-        last = ctx.channel.last_message_id
-        msg = await ctx.channel.fetch_message(int(last))
-        await msg.add_reaction(skip)
 
     @commands.command()
     async def add(self, ctx, *, url):
@@ -512,10 +474,6 @@ class Music(commands.Cog):
 
         voice = get(self.bot.voice_clients, guild=ctx.guild)
         voice.stop()
-        skip = self.bot.get_emoji(892998428609642506)
-        last = ctx.channel.last_message_id
-        msg = await ctx.channel.fetch_message(int(last))
-        await msg.add_reaction(skip)
 
     @qp.before_invoke
     @play.before_invoke
