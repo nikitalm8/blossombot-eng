@@ -1,0 +1,4 @@
+pynacl==1.4.0
+ytdl==0.6.4
+youtube_dl==2021.6.6
+discord==1.7.3
